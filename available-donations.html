@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Available Donations</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin: 20px 0;
+    }
+
+    table {
+      width: 80%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    a {
+      display: block;
+      width: 200px;
+      margin: 20px auto;
+      padding: 10px;
+      text-align: center;
+      background-color: #4CAF50;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+
+    a:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+<h1>Available Donations</h1>
+<table>
+  <thead>
+  <tr>
+    <th>Food Name</th>
+    <th>Food Made Date</th>
+    <th>Time of Food Made</th>
+    <th>Description</th>
+    <th>Place</th>
+    <th>District</th>
+    <th>Request</th>
+    <th>Reason</th>
+    <th>View Details</th>
+    <th>View Donator</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="food : ${availableDonations}">
+    <td th:text="${food.foodName}">Veg Lunch</td>
+    <td th:text="${food.foodMadeDate}">13-09-2024</td>
+    <td th:text="${food.timeOfFoodMade}">11:35</td>
+    <td th:text="${food.description}">Veg lunch food is good and made for marriage function and there is excess food so what we are ready to donate</td>
+    <td th:text="${food.donator.place}">Abhisekapatti</td>
+    <td th:text="${food.donator.district}">Tirunelveli</td>
+
+    <td>
+      <form th:action="@{/recipient/request-food}" method="post">
+        <input type="hidden" name="foodDetailsId" th:value="${food.id}" />
+        <input type="hidden" name="recipientId" th:value="${recipientId}" />
+        <button type="submit">Request</button>
+      </form>
+
+    </td>
+    <!--    see here daaaaaaaaaaaaaaaaa-->
+    <td>
+      <form th:action="@{/recipient/submit-reason}" method="post">
+        <input type="hidden" name="recipientId" th:value="${recipientId}" />
+        <input type="hidden" name="foodDetailsId" th:value="${food.id}" />
+        <textarea name="reason" class="form-control" placeholder="Write the Reason"></textarea>
+        <button type="submit" class="btn btn-success mt-2">Submit Reason</button>
+      </form>
+    </td>
+
+      <!-- Display the request status here -->
+      <td>
+
+          <span th:text="${food.requestStatus}">No request</span>
+      </td>
+    <th:block th:if="${food.requests != null and food.requests.size() > 0}">
+      <td>
+        <a th:href="@{/recipient/view-donator(requestId=${food.requests[0].id})}">View Donator</a>
+      </td>
+    </th:block>
+
+
+  </tr>
+  </tbody>
+</table>
+
+<a th:href="@{/recipient/dashboard(recipientId=${recipientId})}">Back to Dashboard</a>
+
+</body>
+</html>

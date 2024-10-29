@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Recipient Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Ensures the footer sticks to the bottom */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            flex: 1;
+        }
+
+        footer {
+            background-color: brown;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Food Donation Platform</a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/recipient/home}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/recipient/viewProfile}">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/recipient/logout}">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h2>Welcome, <span th:text="${recipientName}">Recipient!</span></h2>
+    <p>Here you can view and request available food donations.</p>
+
+    <!-- Add recipient-specific dashboard content here -->
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Available Donations</h5>
+                    <p class="card-text">Browse and select food donations.</p>
+                    <a th:href="@{/recipient/available-donations(recipientId=${recipientId})}" class="btn btn-primary">Available Donations</a>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Successfull Donation</h5>
+                    <p class="card-text">View Successfull Donations.</p>
+                    <a th:href="@{/recipient/successful-donations(recipientId=${recipientId})}" class="btn btn-primary">View Successful Donations</a>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Profile Settings</h5>
+                    <p class="card-text">Update your profile information.</p>
+                    <a th:href="@{/recipient/edit-profile}" class="btn btn-primary">Edit Profile</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 Food Donation Platform | All Rights Reserved</p>
+</footer>
+</body>
+</html>

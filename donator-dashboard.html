@@ -1,0 +1,149 @@
+hey change this code this is my current donator-dashboard
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Donator Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Ensures the footer sticks to the bottom */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            flex: 1;
+        }
+
+        footer {
+            background-color: brown;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+        .video-bg{
+        position:fixed;
+        right:0;
+        botton:0;
+        min-width:100%;
+        min-height:100%;
+        z-index:-1;
+        }
+        .content{
+        positon: relative;
+        z-index:1;
+        text-align:center;
+        color:white;
+        font-size:2em;
+        padding-top: 20%;
+        }
+
+
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Food Donation Platform</a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/donator/home}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/donator/viewProfile}">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/donator/logout}">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h2>Welcome, Donator</h2>
+    <p>Manage your donations and profile here.</p>
+
+    <!-- Dashboard Content -->
+    <div class="row">
+        <!-- Issue Food Details Card -->
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Issue Food Details</h5>
+                    <p class="card-text">Add details about the food you wish to donate.</p>
+                    <a href="#" th:href="@{/donator/issue-food}" class="btn btn-primary">Issue Food</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Successful Donations Card -->
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Successful Donations</h5>
+                    <p class="card-text">View a list of donations that have been successfully completed.</p>
+                    <a href="#" th:href="@{/donator/view-successful-donations}" class="btn btn-primary">View Donations</a>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Update Donator Details Card -->
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Update Donator Details</h5>
+                    <p class="card-text">Edit your profile and contact information.</p>
+                    <a href="#" th:href="@{/donator/edit-profile}" class="btn btn-primary">Update Profile</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- View Requests Card -->
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">View Recipient Requests</h5>
+                    <p class="card-text">Check and accept recipient requests for your donated food.</p>
+                    <a href="#" th:href="@{/donator/view-requests}" class="btn btn-primary">View Requests</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Requests Content (Hidden by default) -->
+    <div class="mt-5" th:if="${showRequests}">
+        <h3>Recipient Requests</h3>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Food Name</th>
+                <th>Recipient Name</th>
+                <th>Recipient Place</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="request : ${requests}">
+                <td th:text="${request.foodDetails.foodName}">Veg Lunch</td>
+                <td th:text="${request.recipient.name}">Selva kumar</td>
+                <td th:text="${request.recipient.place}">Pappakudi</td>
+                <td>
+                    <form th:action="@{/donator/accept-donation-request/(requestId=${request.id})}" method="post">
+                        <button type="submit" class="btn btn-success">Accept</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 Food Donation Platform | All Rights Reserved</p>
+</footer>
+</body>
+</html>

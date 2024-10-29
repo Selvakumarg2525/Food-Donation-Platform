@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Successful Donations</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .table thead {
+            background-color: #28a745;
+            color: white;
+        }
+        .table tbody tr:nth-child(odd) {
+            background-color: #d4edda;
+        }
+        .table tbody tr:hover {
+            background-color: #c3e6cb;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2 class="my-4">Successful Donations</h2>
+
+    <!-- View Successful Donations Content -->
+    <div class="mt-5" th:if="${successfulDonations}">
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Food Name</th>
+                <th>Food Made Date</th>
+                <th>Recipient Name</th>
+                <th>Recipient Place</th>
+                <th>Recipient District</th>
+                <th>Feedback</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="donation : ${successfulDonations}">
+                <td th:text="${donation.foodDetails.foodName}">VegLunch</td>
+                <td th:text="${donation.foodDetails.foodMadeDate}">16-09-2024</td>
+                <td th:text="${donation.recipient.name}">Sharan Kumar</td>
+                <td th:text="${donation.recipient.place}">Abhishekapatti</td>
+                <td th:text="${donation.recipient.district}">Tirunelveli</td>
+                <td th:text="${donation.feedback != null ? donation.feedback : 'No feedback'}">No feedback</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

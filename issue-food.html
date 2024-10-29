@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Issue Food</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+
+        background-image: url('/static/images.jfif');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+    .container {
+        max-width: 500px;
+        margin-top: 50px;
+        background-color: rgba(255, 255, 255, 0.8); /* Add semi-transparent background for better text readability */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+<div class="container mt-5">
+
+  <h2 class="text-center">Issue Food</h2>
+  <form th:action="@{/donator/issue-food}" th:object="${foodDetails}" method="post">
+    <div class="form-group">
+      <label for="foodName">Food Name:</label>
+      <input type="text" class="form-control" id="foodName" th:field="*{foodName}" required>
+    </div>
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea class="form-control" id="description" th:field="*{description}" required></textarea>
+    </div>
+    <div class="form-group">
+      <label for="foodMadeDate">Food Made Date:</label>
+      <input type="date" class="form-control" id="foodMadeDate" th:field="*{foodMadeDate}" required>
+    </div>
+    <div class="form-group">
+      <label for="timeOfFoodMade">Time of Food Made:</label>
+      <input type="time" class="form-control" id="timeOfFoodMade" th:field="*{timeOfFoodMade}" required>
+    </div>
+    <div class="form-group">
+      <label for="quantity">Quantity:</label>
+      <input type="number" class="form-control" id="quantity" th:field="*{quantity}" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Issue Food</button>
+  </form>
+</div>
+</body>
+</html>

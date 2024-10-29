@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Ensures the footer sticks to the bottom */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            flex: 1;
+        }
+
+        footer {
+            background-color: brown;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Food Donation Platform</a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/admin/dashboard}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/admin/admin-profile}">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/admin/logout}">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h2>Welcome, Admin!</h2>
+    <p>Manage the platform and monitor various activities here.</p>
+
+    <!-- Dashboard Content -->
+    <div class="row">
+        <!-- View Donators Card -->
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">View Donators</h5>
+                    <p class="card-text">View or modify a list of all registered donators.</p>
+                    <a href="#" th:href="@{/admin/view-donator}" class="btn btn-primary">View Donators</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- View Recipients Card -->
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">View Recipients</h5>
+                    <p class="card-text">View or modify a list of all registered recipients.</p>
+                    <a href="#" th:href="@{/admin/view-recipient}" class="btn btn-primary">View Recipients</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- View Successful Donations Card -->
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">View Successful Donations</h5>
+                    <p class="card-text">Check the list of all successful donations.</p>
+                    <a href="#" th:href="@{/admin/successful-donations}" class="btn btn-primary">View Donations</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Update Admin Profile Card -->
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Update Admin Profile</h5>
+                    <p class="card-text">Edit your profile and contact information.</p>
+                    <a href="#" th:href="@{/admin/update-profile}" class="btn btn-primary">Update Profile</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 Food Donation Platform | All Rights Reserved</p>
+</footer>
+</body>
+</html>

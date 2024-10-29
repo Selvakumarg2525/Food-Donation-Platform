@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Requests</title>
+    <style>
+        /* General page styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            padding: 20px 0;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+
+        /* Table header styling */
+        thead th {
+            background-color: #007bff;
+            color: white;
+            padding: 12px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        /* Table body styling */
+        tbody td {
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Button styling */
+        .btn {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #218838;
+        }
+
+        /* Accept Request Button */
+        .btn-accept {
+            background-color: #007bff;
+        }
+
+        .btn-accept:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive layout */
+        @media only screen and (max-width: 768px) {
+            table {
+                width: 100%;
+                margin: 0;
+            }
+
+            thead {
+                display: none;
+            }
+
+            tbody tr {
+                display: block;
+                margin-bottom: 10px;
+                border: 1px solid #ddd;
+            }
+
+            tbody td {
+                display: block;
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+                border-bottom: none;
+            }
+
+            tbody td:before {
+                content: attr(data-label);
+                position: absolute;
+                left: 10px;
+                text-align: left;
+                font-weight: bold;
+                font-size: 14px;
+                color: #333;
+            }
+
+            .btn {
+                width: 100%;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h2>Donation Requests</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>Donator Name</th>
+        <th>Donator Place</th>
+        <th>Donator Specification</th>
+        <th>Food Name</th>
+        <th>Quantity</th>
+        <th>Request Status</th>
+        <th>Reason</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Assume each 'request' object is passed from the backend -->
+    <tr th:each="pendingRequest : ${pendingRequests}">
+        <td data-label="Donator Name" th:text="${pendingRequest.recipients.name}">Veg Lunch</td>
+        <td data-label="Donator Place" th:text="${pendingRequest.recipients.place}">Veg Lunch</td>
+        <td data-label="Donator Specification" th:text="${pendingRequest.recipients.specification}">Veg Lunch</td>
+
+        <td data-label="Food Name" th:text="${pendingRequest.foodDetails.foodName}">Veg Lunch</td>
+        <td data-label="Quantity" th:text="${pendingRequest.foodDetails.quantity}">20</td>
+        <td data-label="Request Status" th:text="${pendingRequest.request.status}">pending</td>
+        <td data-label="Reason" th:text="${pendingRequest.request.reason != null ? pendingRequest.request.reason : 'No reason'}">No reason</td>
+
+        <td data-label="Action">
+            <!-- Accept Request Button -->
+            <form th:action="@{/donator/accept-request}" method="post">
+                <input type="hidden" th:value="${pendingRequest.request.id}" name="requestId"/>
+                <button type="submit" class="btn btn-accept">Accept Request</button>
+            </form>
+
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

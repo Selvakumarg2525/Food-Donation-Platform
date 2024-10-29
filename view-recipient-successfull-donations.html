@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Successful Donations</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .table thead {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .table tbody tr:nth-child(odd) {
+            background-color: #d4edda;
+        }
+
+        .table tbody tr:hover {
+            background-color: #c3e6cb;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center my-4">Successful Donations</h1>
+
+    <!-- Display table of successful donations -->
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Donator Name</th>
+            <th>Food Name</th>
+            <th>Date of Donation</th>
+            <th>Status</th>
+            <th>Feedback</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="donation : ${successfulDonations}">
+            <td th:text="${donation.foodDetails.donator.name}"></td>
+            <td th:text="${donation.foodDetails.foodName}"></td>
+            <td th:text="${donation.foodDetails.foodMadeDate}"></td>
+            <td th:text="${donation.status}"></td>
+            <td>
+                <!-- Allow the recipient to send feedback if donation is successful gpt -->
+                <form th:action="@{/recipient/submit-feedback}" method="post">
+                    <input type="hidden" name="requestId" th:value="${donation.id}">
+                    <textarea name="feedback" class="form-control" placeholder="Write your feedback"></textarea>
+                    <button type="submit" class="btn btn-success mt-2">Submit Feedback</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
